@@ -15,6 +15,10 @@ def str_ROL(s, n):
     return s[n:] + s[:n]
 
 
+def extract_domain(uri):
+    return uri  # TODO
+
+
 def apply_constraints(digest, size, alnum=False):
     result = digest[:size-4]  # leave room for some extra characters
     extras = list(reversed(digest[size-4:]))
@@ -52,7 +56,7 @@ def pwdhash(domain, password):
 def main():
     if len(sys.argv) != 2:
         sys.exit("Usage: pwdhash domain")
-    domain = sys.argv[1]
+    domain = extract_domain(sys.argv[1])
     password = getpass.getpass()
     print(pwdhash(domain, password), '')
 
