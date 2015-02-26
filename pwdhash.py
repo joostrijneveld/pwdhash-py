@@ -6,6 +6,7 @@ import base64
 import getpass
 import string
 import re
+import argparse
 
 PREFIX = '@@'
 DUALTLDS = [
@@ -100,11 +101,14 @@ def pwdhash(domain, password):
 
 
 def main():
-    if len(sys.argv) != 2:
-        sys.exit("Usage: pwdhash domain")
-    domain = extract_domain(sys.argv[1])
+    parser = argparse.ArgumentParser(description='Computes a PwdHash.')
+    parser.add_argument('domain', help='the domain or uri of the site')
+    parser.add_argument('-n', action='store_true',
+                        help='do not print the trailing newline')
+    args = parser.parse_args()
+    domain = extract_domain(args.domain)
     password = getpass.getpass()
-    print(pwdhash(domain, password), end='')
+    print(pwdhash(domain, password), end='' if args.n else '\n')
 
 if __name__ == '__main__':
     main()
