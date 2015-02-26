@@ -104,7 +104,7 @@ def main():
         sys.exit("Usage: pwdhash domain")
     domain = extract_domain(sys.argv[1])
     password = getpass.getpass()
-    print(pwdhash(domain, password), '')
+    print(pwdhash(domain, password), end='')
 
 if __name__ == '__main__':
     main()
